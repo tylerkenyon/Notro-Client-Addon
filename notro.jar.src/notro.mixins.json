@@ -1,0 +1,41 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "eu.shoroa.notro.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "client.MixinMinecraft",
+    "client.entiy.MixinEntityLivingBase",
+    "client.entiy.MixinEntityTNTPrimed",
+    "client.gui.MixinGuiMainMenu",
+    "client.world.MixinWorldInfo",
+    "fucknetty.BlockedServersMixin",
+    "fucknetty.BlockingDCMixin",
+    "fucknetty.BlockingICFBMixin",
+    "fucknetty.BootstrapMixin",
+    "lwjgl.MixinNanoVGGLConfig",
+    "util.MixinAxisAlignedBB"
+  ],
+  "client": [
+    "client.entiy.MixinEntityPlayerSP",
+    "client.gui.MixinGuiIngame",
+    "client.model.MixinModelBiped",
+    "client.renderer.MixinEntityRenderer",
+    "client.renderer.MixinItemRenderer",
+    "client.renderer.MixinRenderGlobal",
+    "client.renderer.MixinRenderItem",
+    "client.renderer.MixinTextureManager",
+    "client.renderer.entity.MixinRender",
+    "client.renderer.entity.MixinRendererLivingEntity",
+    "client.renderer.entity.MixinRenderPlayer",
+    "client.renderer.entity.layer.MixinLayerArmorBase",
+    "client.renderer.entity.layer.MixinLayerCape",
+    "client.settings.MixinKeyBinding",
+    "resource.MixinResourcePackRepository$Entry",
+    "resource.MixinResourePackRepository"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "NotroClient-refmap.json"
+}
