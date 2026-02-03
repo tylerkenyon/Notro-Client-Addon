@@ -1,105 +1,72 @@
-# NotroPlus (LegacyFabric 1.8.9)
+# NotroPlus Mod
 
-NotroPlus is a LegacyFabric **1.8.9** mod built as a **separate JAR** with an **expandable module system** and a **settings API** (boolean, enum, float slider, int slider, color, etc.).
+NotroPlus is an extension mod for the Notro Client on Minecraft 1.8.9 using LegacyFabric. It runs as a separate JAR alongside the Notro Client JAR, providing an API to add custom modules and settings without directly dealing with obfuscated code in Notro Client.
 
-> Note: This project intentionally keeps any client-specific integration behind an `adapter` interface. If you integrate with any external/closed-source client, make sure you have permission and comply with the target’s license/terms.
+## Features
+- **Expandable Structure**: Modular design with packages for core hooks, mixins, API, and user modules.
+- **API for Custom Modules**: Abstracted hooks for Notro Client's obfuscated methods, allowing easy module creation.
+- **Settings Support**: Full hooking of Notro Client settings types, including:
+  - Enum settings
+  - Boolean settings
+  - Float sliders
+  - Int sliders
+  - Color pickers
+  - Button settings (and others as needed)
+- **Runtime Integration**: Uses mixins to inject into Notro Client for seamless extension.
 
----
+## Requirements
+- Minecraft 1.8.9
+- LegacyFabric loader
+- Notro Client JAR (place in mods folder alongside NotroPlus.jar)
+- Java 8
 
-## Goals
+## Installation
+1. Download the NotroPlus.jar from releases.
+2. Place it in your Minecraft mods folder along with the Notro Client JAR and LegacyFabric.
+3. Launch Minecraft with the LegacyFabric profile.
+4. The mod will automatically hook into Notro Client.
 
-- Refactor the `examplemod` template into:
-  - Main class: `dev.technix.notroplus.Main`
-  - Mixins package: `dev.technix.notroplus.mixins`
-- Provide an intuitive, scalable structure:
-  - `core` (bootstrap, lifecycle, logging)
-  - `modules` (module definitions, registry, categories, events)
-  - `settings` (typed settings + UI-friendly metadata)
-  - `api` (public API for third-party modules)
-  - `integration` (adapter interfaces + optional implementations)
-- Produce a standalone mod JAR that loads via LegacyFabric alongside other mods.
+## API Usage
+The API allows creating custom modules that extend Notro Client's functionality. Modules follow this structure:
 
----
+### Example Module Skeleton
+```java
+package your.package.module.impl;
 
-## Project Structure
+import dev.technix.notroplus.api.Module;
+import dev.technix.notroplus.api.ModuleCategory;
+import dev.technix.notroplus.api.settings.SliderSetting;
+import dev.technix.notroplus.api.settings.EnumSetting;
+import dev.technix.notroplus.api.settings.ButtonSetting;
+import net.minecraft.client.Minecraft;
+import org.lwjgl.input.Keyboard;
 
-src/main/java/dev/technix/notroplus/
-Main.java
+public class YourModule extends Module {
+    // Declare settings
+    private final SliderSetting exampleSlider;
+    private final EnumSetting exampleEnum;
+    private final ButtonSetting exampleButton;
 
-api/
-NotroPlusApi.java
-ModuleProvider.java
+    public YourModule(Minecraft mc) {
+        super(mc, "YourModule", ModuleCategory.COMBAT, Keyboard.KEY_NONE);
+        setDescription("Description of your module");
 
-core/
-NotroPlus.java
-Lifecycle.java
-Log.java
+        // Initialize settings
+        exampleSlider = new SliderSetting("Slider Name", "unit", defaultValue, min, max, step);
+        exampleEnum = new EnumSetting("Enum Name", "Default", "Option1", "Option2");
+        exampleButton = new ButtonSetting("Button Name", false);
 
-events/
-EventBus.java
-events/...
+        // Register settings
+        registerSetting(exampleSlider);
+        registerSetting(exampleEnum);
+        registerSetting(exampleButton);
+    }
 
-modules/
-Module.java
-ModuleCategory.java
-ModuleRegistry.java
-annotations/...
-script/
-ScriptModule.java
-ScriptContext.java
+    // Override event methods as needed
+    @Override
+    public void onPreMotion() {
+        // Your logic here, using settings like exampleSlider.get()
+    }
 
-settings/
-Setting.java
-SettingKey.java
-types/
-BooleanSetting.java
-EnumSetting.java
-FloatSetting.java
-IntSetting.java
-ColorSetting.java
-StringSetting.java
-KeybindSetting.java
-serialization/
-SettingCodec.java
-JsonSettingStore.java
-
-integration/
-ClientAdapter.java
-AdapterManager.java
-stubs/...
-
-src/main/java/dev/technix/notroplus/mixins/
-Mixin...java
-
-src/main/resources/
-fabric.mod.json
-notroplus.mixins.json
-
-
----
-
-## Module & Settings API (high level)
-
-### Modules
-A module is a toggleable feature with:
-- id, name, description, category
-- lifecycle hooks (onEnable/onDisable)
-- event hooks (e.g. tick, render, chat)
-- typed settings registered up-front
-
-### Settings Types
-Supported typed settings:
-- Boolean
-- Enum (string-labeled options)
-- Float slider (min/max/step)
-- Int slider (min/max/step)
-- Color (ARGB)
-- (optional) Keybind, String, MultiEnum, etc.
-
-All settings expose:
-- stable key
-- display name + description
-- default value
-- constraints (min/max/step/options)
-
----
+    // Add other overrides or helpers
+}
