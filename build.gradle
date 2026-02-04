@@ -47,6 +47,7 @@ dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings(legacy.yarn(project.minecraft_version, project.yarn_build))
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	compileOnly files("libs/notro-client.jar")
 
 	// Legacy Fabric API provides hooks for events, item registration, and more. As most mods will need this, it's included by default.
 	// If you know for a fact you don't, it's not required and can be safely removed.
