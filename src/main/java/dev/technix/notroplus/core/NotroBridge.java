@@ -5,7 +5,7 @@ import dev.technix.notroplus.api.module.NotroModuleAdapter;
 import dev.technix.notroplus.api.module.Module;
 import dev.technix.notroplus.api.module.ModuleRegistry;
 import eu.shoroa.bridge.BridgeClient;
-import eu.shoroa.bridge.feature.b.c;
+import eu.shoroa.bridge.feature.module.ModuleManager;
 
 public final class NotroBridge {
     private static boolean initialized;
@@ -21,7 +21,7 @@ public final class NotroBridge {
     }
 
     public static boolean isClientAvailable() {
-        return BridgeClient.a.b() != null;
+        return BridgeClient.Companion.instance() != null;
     }
 
     public static void registerModule(Module module) {
@@ -45,8 +45,12 @@ public final class NotroBridge {
     }
 
     private static void registerWithClient(Module module) {
-        c manager = BridgeClient.a.b().moduleManager();
-        manager.a(new NotroModuleAdapter(module));
+        BridgeClient client = BridgeClient.Companion.instance();
+        if (client == null) {
+            return;
+        }
+        ModuleManager manager = client.moduleManager();
+        manager.plus(new NotroModuleAdapter(module));
         module.markRegistered();
     }
 }
