@@ -38,7 +38,7 @@ public final class NotroModuleAdapter extends Module {
                     sliderSetting.getMin(), sliderSetting.getMax(), sliderSetting.getStep()));
             } else if (setting instanceof EnumSetting) {
                 EnumSetting<?> enumSetting = (EnumSetting<?>) setting;
-                enumSetting.bind(this, any(setting.getName(), (Enum<?>) enumSetting.get()));
+                enumSetting.bind(this, (Setting) any(setting.getName(), enumSetting.get()));
             } else if (setting instanceof ColorSetting) {
                 ColorSetting colorSetting = (ColorSetting) setting;
                 colorSetting.bind(this, color(setting.getName(), colorSetting.get()));
@@ -53,7 +53,7 @@ public final class NotroModuleAdapter extends Module {
                 HotkeySetting hotkeySetting = (HotkeySetting) setting;
                 hotkeySetting.bind(this, any(setting.getName(), hotkeySetting.getValue()));
             } else {
-                setting.bind(this, any(setting.getName(), (Object) setting.get()));
+                setting.bind(this, (Setting) any(setting.getName(), setting.get()));
             }
         }
     }
