@@ -4,9 +4,7 @@
   "package": "dev.technix.notroplus.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [],
-  "client": [
-    "MixinEntityPlayerSP"
-  ],
+  "client": [],
   "injectors": {
     "defaultRequire": 1
   }

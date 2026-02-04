@@ -7,7 +7,7 @@ import dev.technix.notroplus.api.settings.EnumSetting;
 import dev.technix.notroplus.api.settings.HotkeySetting;
 import dev.technix.notroplus.api.settings.ShapeSetting;
 import dev.technix.notroplus.api.settings.SliderSetting;
-import eu.shoroa.bridge.a.g;
+import eu.shoroa.bridge.event.EventUpdate;
 import eu.shoroa.bridge.feature.module.Module;
 import eu.shoroa.bridge.feature.setting.Setting;
 import eu.shoroa.bridge.feature.setting.misc.Shape;
@@ -38,7 +38,7 @@ public final class NotroModuleAdapter extends Module {
                     sliderSetting.getMin(), sliderSetting.getMax(), sliderSetting.getStep()));
             } else if (setting instanceof EnumSetting) {
                 EnumSetting<?> enumSetting = (EnumSetting<?>) setting;
-                enumSetting.bind(this, any(setting.getName(), enumSetting.get()));
+                enumSetting.bind(this, any(setting.getName(), (Enum<?>) enumSetting.get()));
             } else if (setting instanceof ColorSetting) {
                 ColorSetting colorSetting = (ColorSetting) setting;
                 colorSetting.bind(this, color(setting.getName(), colorSetting.get()));
@@ -53,7 +53,7 @@ public final class NotroModuleAdapter extends Module {
                 HotkeySetting hotkeySetting = (HotkeySetting) setting;
                 hotkeySetting.bind(this, any(setting.getName(), hotkeySetting.getValue()));
             } else {
-                setting.bind(this, any(setting.getName(), setting.get()));
+                setting.bind(this, any(setting.getName(), (Object) setting.get()));
             }
         }
     }
@@ -80,7 +80,7 @@ public final class NotroModuleAdapter extends Module {
     }
 
     @Listen
-    public void onUpdate(g event) {
+    public void onUpdate(EventUpdate event) {
         module.onPreMotion();
     }
 
