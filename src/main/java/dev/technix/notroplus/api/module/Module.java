@@ -4,10 +4,8 @@ import dev.technix.notroplus.api.settings.Setting;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import net.minecraft.client.Minecraft;
 
 public abstract class Module {
-    private final Minecraft minecraft;
     private final String name;
     private final ModuleCategory category;
     private final int keybind;
@@ -15,15 +13,10 @@ public abstract class Module {
     private String description = "";
     private boolean registered;
 
-    protected Module(Minecraft minecraft, String name, ModuleCategory category, int keybind) {
-        this.minecraft = minecraft;
+    protected Module(String name, ModuleCategory category, int keybind) {
         this.name = name;
         this.category = category;
         this.keybind = keybind;
-    }
-
-    public final Minecraft getMinecraft() {
-        return minecraft;
     }
 
     public final String getName() {
