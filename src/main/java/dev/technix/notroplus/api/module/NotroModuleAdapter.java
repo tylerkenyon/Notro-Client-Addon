@@ -7,9 +7,11 @@ import dev.technix.notroplus.api.settings.EnumSetting;
 import dev.technix.notroplus.api.settings.HotkeySetting;
 import dev.technix.notroplus.api.settings.ShapeSetting;
 import dev.technix.notroplus.api.settings.SliderSetting;
+import eu.shoroa.bridge.a.g;
 import eu.shoroa.bridge.feature.module.Module;
 import eu.shoroa.bridge.feature.setting.Setting;
 import eu.shoroa.bridge.feature.setting.misc.Shape;
+import io.github.nevalackin.radbus.Listen;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -75,6 +77,11 @@ public final class NotroModuleAdapter extends Module {
         } else {
             module.onDisable();
         }
+    }
+
+    @Listen
+    public void onUpdate(g event) {
+        module.onPreMotion();
     }
 
     public void onPreMotion() {
