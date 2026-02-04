@@ -4,8 +4,7 @@ import dev.technix.notroplus.api.module.NotroModuleAdapter;
 import dev.technix.notroplus.api.module.Module;
 import dev.technix.notroplus.core.NotroBridge;
 import eu.shoroa.bridge.BridgeClient;
-import eu.shoroa.bridge.feature.b.b;
-import eu.shoroa.bridge.feature.b.c;
+import eu.shoroa.bridge.feature.module.ModuleManager;
 import net.minecraft.class_518;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,10 +18,14 @@ public class MixinEntityPlayerSP {
         if (!NotroBridge.isClientAvailable()) {
             return;
         }
-        c manager = BridgeClient.a.b().moduleManager();
-        manager.a((b module) -> {
-            if (module instanceof NotroModuleAdapter) {
-                Module apiModule = ((NotroModuleAdapter) module).getModule();
+        BridgeClient client = BridgeClient.Companion.instance();
+        if (client == null) {
+            return;
+        }
+        ModuleManager manager = client.moduleManager();
+        manager.forEach(bridgeModule -> {
+            if (bridgeModule instanceof NotroModuleAdapter) {
+                Module apiModule = ((NotroModuleAdapter) bridgeModule).getModule();
                 apiModule.onPreMotion();
             }
             return kotlin.Unit.INSTANCE;

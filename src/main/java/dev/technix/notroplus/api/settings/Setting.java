@@ -1,11 +1,9 @@
 package dev.technix.notroplus.api.settings;
 
-import eu.shoroa.bridge.feature.c.b;
-
 public abstract class Setting<T> {
     private final String name;
     private T value;
-    private b<T> bridgeSetting;
+    private eu.shoroa.bridge.feature.setting.Setting<T> bridgeSetting;
 
     protected Setting(String name, T value) {
         this.name = name;
@@ -17,14 +15,14 @@ public abstract class Setting<T> {
     }
 
     public T get() {
-        return bridgeSetting != null ? bridgeSetting.b() : value;
+        return bridgeSetting != null ? bridgeSetting.getValue() : value;
     }
 
     public void set(T value) {
         this.value = value;
         if (bridgeSetting != null) {
-            bridgeSetting.a(value);
-            bridgeSetting.g();
+            bridgeSetting.setValue(value);
+            bridgeSetting.callChange();
         }
     }
 
@@ -32,12 +30,12 @@ public abstract class Setting<T> {
         return bridgeSetting != null;
     }
 
-    public void bind(Object owner, b<T> setting) {
+    public void bind(Object owner, eu.shoroa.bridge.feature.setting.Setting<T> setting) {
         this.bridgeSetting = setting;
-        this.value = setting.b();
+        this.value = setting.getValue();
     }
 
-    public b<T> getBridgeSetting() {
+    public eu.shoroa.bridge.feature.setting.Setting<T> getBridgeSetting() {
         return bridgeSetting;
     }
 }

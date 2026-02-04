@@ -5,7 +5,6 @@ import dev.technix.notroplus.api.module.ModuleCategory;
 import dev.technix.notroplus.api.settings.ButtonSetting;
 import dev.technix.notroplus.api.settings.EnumSetting;
 import dev.technix.notroplus.api.settings.SliderSetting;
-import net.minecraft.client.MinecraftClient;
 import org.lwjgl.input.Keyboard;
 
         public final class YourModule extends Module {
@@ -13,8 +12,8 @@ import org.lwjgl.input.Keyboard;
         private final EnumSetting<Mode> mode;
         private final ButtonSetting trigger;
 
-        public YourModule(MinecraftClient mc) {
-        super(mc, "YourModule", ModuleCategory.COMBAT, Keyboard.KEY_NONE);
+        public YourModule() {
+        super("YourModule", ModuleCategory.COMBAT, Keyboard.KEY_NONE);
         setDescription("Description of your module");
 
         horizontalSpeed = new SliderSetting("Speed", 2.0f, 0.0f, 10.0f, 0.1f);
