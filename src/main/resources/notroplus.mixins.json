@@ -1,12 +1,11 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.legacyfabric.example.mixin",
+  "package": "dev.technix.notroplus.mixins",
   "compatibilityLevel": "JAVA_8",
-  "mixins": [
-  ],
+  "mixins": [],
   "client": [
-    "ExampleMixin"
+    "MixinEntityPlayerSP"
   ],
   "injectors": {
     "defaultRequire": 1

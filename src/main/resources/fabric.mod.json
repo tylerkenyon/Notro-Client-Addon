@@ -1,32 +1,30 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "notroplus",
   "version": "${version}",
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "NotroPlus",
+  "description": "Addon API for Notro Client on LegacyFabric.",
   "authors": [
-    "Me!"
+    "Technix"
   ],
   "contact": {
-    "homepage": "https://legacyfabric.net/",
-    "sources": "https://github.com/Legacy-Fabric/fabric-example-mod"
+    "homepage": "https://example.com/notroplus",
+    "sources": "https://github.com/tylerkenyon/Notro-Client-Addon"
   },
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/notroplus/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.legacyfabric.example.ExampleMod"
+      "dev.technix.notroplus.Main"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "notroplus.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.16.0",
-    "minecraft": "1.8.9"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "minecraft": "1.8.9",
+    "notro": "*"
   }
 }
