@@ -31,7 +31,7 @@ public final class NotroModuleAdapter extends Module {
         for (dev.technix.notroplus.api.settings.Setting<?> setting : apiSettings) {
             if (setting instanceof BooleanSetting) {
                 BooleanSetting booleanSetting = (BooleanSetting) setting;
-                booleanSetting.bind(this, boolean(setting.getName(), booleanSetting.get()));
+                booleanSetting.bind(this, any(setting.getName(), booleanSetting.get()));
             } else if (setting instanceof SliderSetting) {
                 SliderSetting sliderSetting = (SliderSetting) setting;
                 sliderSetting.bind(this, slider(setting.getName(), sliderSetting.getValue(),
@@ -44,7 +44,7 @@ public final class NotroModuleAdapter extends Module {
                 colorSetting.bind(this, color(setting.getName(), colorSetting.get()));
             } else if (setting instanceof ButtonSetting) {
                 ButtonSetting buttonSetting = (ButtonSetting) setting;
-                buttonSetting.bind(this, boolean(setting.getName(), buttonSetting.get()));
+                buttonSetting.bind(this, any(setting.getName(), buttonSetting.get()));
             } else if (setting instanceof ShapeSetting) {
                 ShapeSetting shapeSetting = (ShapeSetting) setting;
                 Shape shape = shapeSetting.getValue();
